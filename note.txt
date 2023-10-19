@@ -1,0 +1,11 @@
+composer require laravel/sanctum
+
+php artisan vendor:publish --provider="Laravel\Sanctum\SanctumServiceProvider"
+
+open comment Kernel
+'api' => [
+    \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
+    \Illuminate\Routing\Middleware\ThrottleRequests::class.':api',
+    \Illuminate\Routing\Middleware\SubstituteBindings::class,
+],
+
