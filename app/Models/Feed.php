@@ -14,21 +14,22 @@ class Feed extends Model
         'id'
     ];
 
-    /**
-     * Summary of user
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
+    protected $appends = ['liked'];
+
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    /**
-     * Summary of like
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
     public function likes()
     {
         return $this->hasMany(Like::class);
+    }
+
+    public function getLikedAttribute(): bool
+    {
+        return (bool) $this->likes()->where('feed_id', $this->id)
+            ->where('user_id', auth()->id())
+            ->exists();
     }
 }

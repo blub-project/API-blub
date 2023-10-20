@@ -10,11 +10,14 @@ use App\Http\Controllers\Controller;
 
 class FeedController extends Controller
 {
-    /**
-     * Summary of store
-     * @param \App\Http\Requests\PostRequest $request
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
-     */
+    public function index()
+    {
+        $feeds = Feed::with('user')->latest()->get();
+        return response([
+            'feeds' => $feeds,
+        ], 200);
+    }
+
     public function store(PostRequest $request)
     {
         $request->validated();
@@ -60,4 +63,5 @@ class FeedController extends Controller
             ], 200);
         }
     }
+    
 }

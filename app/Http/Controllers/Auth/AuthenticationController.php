@@ -11,11 +11,6 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthenticationController extends Controller
 {
-    /**
-     * Summary of register
-     * @param \App\Http\Requests\RegisterRequest $request
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
-     */
     public function register(RegisterRequest $request)
     {
         $request->validated();
@@ -35,11 +30,6 @@ class AuthenticationController extends Controller
         ], 201);
     }
 
-    /**
-     * Summary of login
-     * @param \App\Http\Requests\LoginRequest $request
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
-     */
     public function login(LoginRequest $request)
     {
         $request->validated();

@@ -13,10 +13,6 @@ class Like extends Model
         'id'
     ];
 
-    /**
-     * Summary of feed
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
     public function feed()
     {
         return $this->belongsTo(Feed::class);
