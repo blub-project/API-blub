@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Feed;
 
 use App\Models\Feed;
 use App\Models\Like;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use App\Http\Requests\PostRequest;
 use App\Http\Controllers\Controller;
@@ -63,5 +64,32 @@ class FeedController extends Controller
             ], 200);
         }
     }
-    
+
+    public function comment(Request $request, $feed_id)
+    {
+        $request->validate([
+            'body' => 'required',
+        ]);
+
+        $comment = Comment::create([
+            'user_id' => auth()->id(),
+            'feed_id' => $feed_id,
+            'body' => $request->body,
+        ]);
+
+        return response([
+            'message' => 'success',
+        ], 201);
+    }
+
+    public function getComments($feed_id)
+    {
+        $comments = Comment::whereFeedId($feed_id)
+            ->with('feed')->with('user')
+            ->latest()->get();
+
+        return response([
+            'comments' => $comments,
+        ], 200);
+    }
 }

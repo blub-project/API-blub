@@ -13,8 +13,7 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    protected $guarded = [
-        'id'
+    protected $guarded = ['id'
     ];
 
     /**
@@ -40,5 +39,10 @@ class User extends Authenticatable
     public function feeds()
     {
         return $this->hasMany(Feed::class);
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
     }
 }
